@@ -1,0 +1,8 @@
+# Normalize line endings for text files
+* text=auto
+
+# Use LF for Linux shell scripts
+*.sh text eol=lf
+
+# Use CRLF for Windows scripts
+*.cmd text eol=crlf
