@@ -55,7 +55,7 @@ while [[ $# -gt 0 ]]; do
       ;;
     --make-target)
       if [ -z "${MAKE_TARGET+x}" ]; then
-        DB_LANG="$2"
+        MAKE_TARGET="$2"
       else
         echo "Duplicate 'make-target' argument"
         exit 1
