@@ -112,7 +112,7 @@ CONF_COMMAND="configure --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-l
 
 # Build performance customization
 # https://github.com/openjdk/jdk/blob/master/doc/building.md#build-performance
-# Memory limit in MiB
+# Memory limit in MB
 if [ -n "${MEMORY_LIMIT+x}" ]; then
     echo "Using custom memory limit ${MEMORY_LIMIT}"
     CONF_COMMAND="${CONF_COMMAND} --with-memory-size=${MEMORY_LIMIT}"

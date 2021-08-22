@@ -52,7 +52,7 @@ URI of the Git repository from which the JDK source code should be cloned. When 
 Git commit hash (or branch name) of the commit to build. If not specified the latest commit of the active branch of the remote Git repository is built.  
 See also the considerations for picking the JDK version described above for the `--jdk-git-repo` parameter.
 - `--memory-limit`  
-Specifies the memory limit for the JDK build within the container. The JDK build tools will use the maximum memory available to the container if not specified.
+Specifies the memory limit in MB for the JDK build within the container. The JDK build tools will use the maximum memory available to the container if not specified.
 It is recommended to specify a custom limit because the JDK build tools do not account for CodeQL CLI running during the build, causing the JDK build to slow down or even fail.
 Creating a container with ~4GB, and setting a memory limit of ~2GB for the JDK build seems to work fine.  
 Also have a look at the JDK [Build Hardware Requirements](https://github.com/openjdk/jdk/blob/master/doc/building.md#build-hardware-requirements) and [Build Performance guide](https://github.com/openjdk/jdk/blob/master/doc/building.md#build-performance). When using WSL2 on Windows, tuning the [WSL 2 Settings](https://docs.microsoft.com/en-us/windows/wsl/wsl-config#wsl-2-settings) might help as well.
