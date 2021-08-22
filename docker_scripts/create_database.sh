@@ -85,6 +85,7 @@ if [ -z "${REPO_URL+x}" ]; then
     exit 1
 fi
 
+echo "Using CodeQL CLI $(./codeql-cli/codeql/codeql version --format=terse)"
 if [ -z "${DB_LANG+x}" ]; then
     echo "No CodeQL database language set; using Java"
     DB_LANG="java"
