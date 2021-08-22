@@ -17,7 +17,7 @@ This project provides convenience scripts for creating a CodeQL database for the
 - Windows: [`build_database.cmd`](./build_database.cmd)
 - Linux: [`build_database.sh`](./build_database.sh)
 
-At the moment they use CodeQL CLI 2.5.7 and build a Java database for the latest https://github.com/openjdk/jdk16u commit.
+At the moment they use CodeQL CLI 2.5.9 and build a Java database for the latest https://github.com/openjdk/jdk16u commit.
 
 These scripts can be executed as is (assuming that Docker has already been started). They perform the following tasks:
 1. Build the Docker image (named `codeql-jdk`)
