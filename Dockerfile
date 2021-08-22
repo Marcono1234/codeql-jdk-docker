@@ -22,11 +22,11 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y instal
 # Install boot JDK
 ARG BOOT_JDK_VERSION=16
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends \
-    openjdk-${BOOT_JDK_VERSION}-jdk
+    "openjdk-${BOOT_JDK_VERSION}-jdk-headless"
 
 # Set up CodeQL CLI
 ARG CODEQL_CLI_VERSION=2.5.7
-RUN wget -q https://github.com/github/codeql-cli-binaries/releases/download/v${CODEQL_CLI_VERSION}/codeql-linux64.zip --output-document=codeql-linux64.zip \
+RUN wget -q "https://github.com/github/codeql-cli-binaries/releases/download/v${CODEQL_CLI_VERSION}/codeql-linux64.zip" --output-document=codeql-linux64.zip \
     && unzip -q -d codeql-cli codeql-linux64.zip \
     && rm codeql-linux64.zip
 
