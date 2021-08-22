@@ -100,12 +100,15 @@ fi
 mkdir jdk
 cd jdk
 
+echo "Cloning JDK repository ${REPO_URL}"
 if [ -z "${COMMIT_SHA+x}" ]; then
     git clone --depth 1 "$REPO_URL" .
 else
     git clone --no-checkout "$REPO_URL" .
     git checkout "$COMMIT_SHA"
 fi
+
+echo "Building JDK commit $(git rev-parse --short=10 HEAD)"
 
 # Specify build and host OS to avoid detection of WSL as Windows
 CONF_COMMAND="configure --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-linux-gnu"
