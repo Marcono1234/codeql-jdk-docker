@@ -91,13 +91,6 @@ if [ -z "${DB_LANG+x}" ]; then
     DB_LANG="java"
 fi
 
-DB_DIR_NAME="codeql-jdk-${DB_LANG}-db"
-DB_PATH="${DB_PARENT_DIR}/${DB_DIR_NAME}"
-if [ -e "${DB_PATH}" ]; then
-    echo "Database '${DB_DIR_NAME}' already exists"
-    exit 1
-fi
-
 mkdir jdk
 cd jdk
 
@@ -109,7 +102,19 @@ else
     git checkout "$COMMIT_SHA"
 fi
 
-echo "Building JDK commit $(git rev-parse --short=10 HEAD)"
+# Get the actual commit SHA because COMMIT_SHA might either not be
+# specified or be a branch name
+ACTUAL_COMMIT_SHA="$(git rev-parse --short=10 HEAD)"
+
+DB_DIR_NAME="codeql-jdk-${DB_LANG}-db-${ACTUAL_COMMIT_SHA}"
+DB_PATH="${DB_PARENT_DIR}/${DB_DIR_NAME}"
+# Use `..` because current directory is "jdk"
+if [ -e "../${DB_PATH}" ]; then
+    echo "Database '${DB_DIR_NAME}' already exists"
+    exit 1
+fi
+
+echo "Building JDK commit ${ACTUAL_COMMIT_SHA}"
 
 # Specify build and host OS to avoid detection of WSL as Windows
 CONF_COMMAND="configure --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-linux-gnu"
@@ -125,6 +130,7 @@ fi
 if [ -n "${CPU_CORES+x}" ]; then
     # Note: Currently JDK "Build performance summary" shows number of parallel
     # jobs as "Cores to use"; its value is based on cores count and memory
+    # See https://bugs.openjdk.java.net/browse/JDK-8270438
     echo "Using custom CPU cores count ${CPU_CORES}"
     CONF_COMMAND="${CONF_COMMAND} --with-num-cores=${CPU_CORES}"
 fi
