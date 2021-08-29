@@ -73,6 +73,16 @@ while [[ $# -gt 0 ]]; do
       shift # past parameter
       shift # past value
       ;;
+    --jdk-version-name)
+      if [ -z "${JDK_VERSION_NAME+x}" ]; then
+        JDK_VERSION_NAME="$2"
+      else
+        echo "Duplicate 'jdk-version-name' argument"
+        exit 1
+      fi
+      shift # past parameter
+      shift # past value
+      ;;
     *)
       echo "Unknown parameter '$key'"
       exit 1
@@ -106,7 +116,12 @@ fi
 # specified or be a branch name
 ACTUAL_COMMIT_SHA="$(git rev-parse --short=10 HEAD)"
 
-DB_DIR_NAME="codeql-jdk-${DB_LANG}-db-${ACTUAL_COMMIT_SHA}"
+if [ -z "${JDK_VERSION_NAME+x}" ]; then
+    DB_DIR_NAME="codeql-jdk-${DB_LANG}-db-${ACTUAL_COMMIT_SHA}"
+else
+    DB_DIR_NAME="codeql-jdk-${JDK_VERSION_NAME}-${DB_LANG}-db-${ACTUAL_COMMIT_SHA}"
+fi
+
 DB_PATH="${DB_PARENT_DIR}/${DB_DIR_NAME}"
 # Use `..` because current directory is "jdk"
 if [ -e "../${DB_PATH}" ]; then

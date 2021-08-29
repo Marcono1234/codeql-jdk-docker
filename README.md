@@ -65,3 +65,5 @@ Specifies the [`make` target](https://github.com/openjdk/jdk/blob/master/doc/bui
 Specifies the programming language for which CodeQL CLI shoud create the database, have a look at the [CodeQL CLI documentation](https://codeql.github.com/docs/codeql-cli/creating-codeql-databases/#running-codeql-database-create) for a list of supported programming languages. By default the database is created for Java source code.
 When choosing a different programming language it might be necessary to specify a different `--make-target`.  
 Note: The chosen database language influences the name of the created database folder.
+- `--jdk-version-name`  
+Specifies the JDK version name to be included in the name of the created database folder. This has no effect on the cloned Git repository or the build commands. By default no JDK version name is included in the name of the database folder because it is often not easily possible to obtain the version name only from the specified JDK Git repository.
