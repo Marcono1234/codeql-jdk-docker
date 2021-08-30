@@ -1,2 +1,3 @@
-# Ignore generated databases directory
+# Ignore generated databases directories
 /databases
+/jdk-versions/databases
