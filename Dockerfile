@@ -25,7 +25,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y instal
     "openjdk-${BOOT_JDK_VERSION}-jdk-headless"
 
 # Set up CodeQL CLI
-ARG CODEQL_CLI_VERSION=2.5.9
+ARG CODEQL_CLI_VERSION=2.6.3
 RUN wget -q "https://github.com/github/codeql-cli-binaries/releases/download/v${CODEQL_CLI_VERSION}/codeql-linux64.zip" --output-document=codeql-linux64.zip \
     && unzip -q -d codeql-cli codeql-linux64.zip \
     && rm codeql-linux64.zip
@@ -35,4 +35,4 @@ RUN wget -q "https://github.com/github/codeql-cli-binaries/releases/download/v${
 COPY ./docker_scripts/* ./docker_scripts/
 
 ENTRYPOINT ["./docker_scripts/create_database.sh"]
-CMD ["--jdk-git-repo", "https://github.com/openjdk/jdk16u"]
+CMD ["--jdk-git-repo", "https://github.com/openjdk/jdk17u"]

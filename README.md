@@ -17,7 +17,7 @@ This project provides convenience scripts for creating a CodeQL database for the
 - Windows: [`build_database.cmd`](./build_database.cmd)
 - Linux: [`build_database.sh`](./build_database.sh)
 
-At the moment they use CodeQL CLI 2.5.9 and build a Java database for the latest https://github.com/openjdk/jdk16u commit.
+At the moment they use CodeQL CLI 2.6.3 and build a Java database for the latest https://github.com/openjdk/jdk17u commit.
 
 The scripts only build the Linux variant of the JDK, building the Windows variant is currently not supported.
 
@@ -49,7 +49,7 @@ Arguments have the format <code>--<i>param</i> <i>value</i></code>
 URI of the Git repository from which the JDK source code should be cloned. When choosing the JDK version to build, the following has to be considered:
   - A matching boot JDK has to be choosen (see ["Docker image configuration" section](#docker-image-configuration))
   - CodeQL CLI has to support the Java version. The CodeQL CLI version might have to be adjusted  (see ["Docker image configuration" section](#docker-image-configuration)).  
-    CodeQL CLI might not support building the latest JDK yet, prefer JDK update projects such as [jdk16u](https://github.com/openjdk/jdk16u).
+    CodeQL CLI might not support building the latest (unreleased) JDK version yet, prefer JDK update releases of older versions such as [jdk16u](https://github.com/openjdk/jdk16u).
   - The Dockerfile is currently configured for the default JDK built by the convenience scripts of this project. Other JDKs might have different dependencies, consult the [JDK build instructions](https://github.com/openjdk/jdk/blob/master/doc/building.md) and adjust the Dockerfile if problems occur.
   - Since the JDK build tools are part of the JDK repository, the choice of the JDK version affects which of the other build arguments are supported and how they behave.
 - `--jdk-commit-sha`  
