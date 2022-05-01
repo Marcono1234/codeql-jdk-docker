@@ -53,8 +53,8 @@ URI of the Git repository from which the JDK source code should be cloned. When 
   - The Dockerfile is currently configured for the default JDK built by the convenience scripts of this project. Other JDKs might have different dependencies, consult the [JDK build instructions](https://github.com/openjdk/jdk/blob/master/doc/building.md) and adjust the Dockerfile if problems occur.
   - Since the JDK build tools are part of the JDK repository, the choice of the JDK version affects which of the other build arguments are supported and how they behave.
 - `--jdk-commit-sha`  
-Git commit hash (or branch name) of the commit to build. If not specified the latest commit of the active branch of the remote Git repository is built.  
-See also the considerations for picking the JDK version described above for the `--jdk-git-repo` parameter.
+Git commit hash (or branch name) of the JDK commit to build. If not specified, the latest commit of the active branch of the remote Git repository is built.  
+See also the considerations for picking the JDK version described above for the `--jdk-git-repo` parameter. When using a commit hash, the full commit hash (40 characters) should be specified to allow performing a shallow fetch.
 - `--memory-limit`  
 Specifies the memory limit in MB for the JDK build within the container. The JDK build tools will use the maximum memory available to the container if not specified.
 It is recommended to specify a custom limit because the JDK build tools do not account for CodeQL CLI running during the build, causing the JDK build to slow down or even fail.

@@ -108,8 +108,21 @@ echo "Cloning JDK repository ${REPO_URL}"
 if [ -z "${COMMIT_SHA+x}" ]; then
     git clone --depth 1 "$REPO_URL" .
 else
-    git clone --no-checkout "$REPO_URL" .
-    git checkout "$COMMIT_SHA"
+    # Try shallow fetch of specific commit (might not be supported by remote repository)
+    # See https://stackoverflow.com/a/43136160
+    git init
+    git remote add origin "${REPO_URL}"
+
+    EXIT_CODE=0
+    git fetch --depth 1 origin "${COMMIT_SHA}" || EXIT_CODE=$?
+
+    if [[ $EXIT_CODE -eq 0 ]]; then
+        git checkout FETCH_HEAD
+    else
+        echo "Failed performing shallow fetch; trying full fetch instead"
+        git fetch origin
+        git checkout "$COMMIT_SHA"
+    fi
 fi
 
 # Get the actual commit SHA because COMMIT_SHA might either not be
@@ -150,6 +163,9 @@ if [ -n "${CPU_CORES+x}" ]; then
     CONF_COMMAND="${CONF_COMMAND} --with-num-cores=${CPU_CORES}"
 fi
 
+echo ""
+echo "----- Creating JDK build configuration -----"
+
 # Create JDK build configuration
 bash ${CONF_COMMAND}
 
@@ -160,10 +176,14 @@ if [ -z "${MAKE_TARGET+x}" ]; then
     MAKE_TARGET="java"
 fi
 
+echo ""
+echo "----- Building JDK -----"
+
 # Build database in temp directory and afterwards copy result to mounted dir
 # to reduce IO in mounted dir for better performance on WSL
 mkdir ../db-build-temp
 ../codeql-cli/codeql/codeql database create "--language=${DB_LANG}" --source-root=. "--command=make ${MAKE_TARGET}" "../db-build-temp"
 cp --recursive ../db-build-temp "../${DB_PATH}"
 
+echo ""
 echo "Finished creating database '${DB_DIR_NAME}'"
