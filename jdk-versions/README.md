@@ -3,7 +3,7 @@ This directory contains convenience build scripts for creating databases for the
 - `jdk8u`: Cloned from [adoptium/jdk8u](https://github.com/adoptium/jdk8u)
 - `jdk11u`: Cloned from [openjdk/jdk11u](https://github.com/openjdk/jdk11u)
 - `jdk17u`: Cloned from [openjdk/jdk17u](https://github.com/openjdk/jdk17u)
-- _latest release_: Cloned from [openjdk/jdk18u](https://github.com/openjdk/jdk18u)
+- _latest release_: Cloned from [openjdk/jdk19u](https://github.com/openjdk/jdk19u)
 
 The build scripts support the command line arguments for tweaking build performance, as [specified by the README](/README.md#build-configuration).
 

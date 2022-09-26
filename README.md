@@ -17,7 +17,7 @@ This project provides convenience scripts for creating a CodeQL database for the
 - Windows: [`build_database.cmd`](./build_database.cmd)
 - Linux: [`build_database.sh`](./build_database.sh)
 
-At the moment they use CodeQL CLI 2.9.0 and build a Java database for the latest https://github.com/openjdk/jdk18u commit.
+At the moment they use CodeQL CLI 2.10.5 and build a Java database for the latest https://github.com/openjdk/jdk19u commit.
 
 The scripts only build the Linux variant of the JDK, building the Windows variant is currently not supported.
 
