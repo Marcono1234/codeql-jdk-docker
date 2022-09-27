@@ -145,7 +145,8 @@ fi
 echo "Building JDK commit ${ACTUAL_COMMIT_SHA}"
 
 # Specify build and host OS to avoid detection of WSL as Windows
-CONF_COMMAND="configure --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-linux-gnu"
+# Boot JDK is prepared by Dockerfile
+CONF_COMMAND="configure --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-linux-gnu --with-boot-jdk=../boot-jdk"
 
 # Build performance customization
 # https://github.com/openjdk/jdk/blob/master/doc/building.md#build-performance

@@ -34,8 +34,7 @@ Note: Building the Docker image, the JDK and the CodeQL database are all resourc
 
 ### Docker image configuration
 The Dockerfile uses [build-time variables](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg) for configuration.
-- `BOOT_JDK_VERSION`: Version of the [boot JDK](https://github.com/openjdk/jdk/blob/master/doc/building.md#boot-jdk-requirements), e.g. `16`  
-The value is used for the package retrieved from the package repository of Ubuntu, make sure that a package for this version exists.
+- `BOOT_JDK_URL`: URL of the JDK to be used as [boot JDK](https://github.com/openjdk/jdk/blob/master/doc/building.md#boot-jdk-requirements). The URL should be a download link for a `.tar.gz` file containing all JDK files nested in an extra directory. For example the [Eclipse Adoptium](https://adoptium.net) download URLs of the GitHub releases can be used.
 - `CODEQL_CLI_VERSION`: Version of [CodeQL CLI](https://github.com/github/codeql-cli-binaries/releases) to use for building the database, e.g. `2.5.7`
 
 ### Build configuration
