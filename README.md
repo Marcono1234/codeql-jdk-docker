@@ -1,10 +1,12 @@
 # codeql-jdk-docker
+
 Unofficial scripts and Docker configuration for building [CodeQL](https://codeql.github.com/docs/) databases for the OpenJDK.  
 The created databases can then for example be loaded and analyzed using the [Visual Studio Code CodeQL extension](https://codeql.github.com/docs/codeql-for-visual-studio-code/analyzing-your-projects/).
 
 :warning: Your usage of CodeQL and the created databases has to adhere to the [GitHub CodeQL Terms and Conditions](https://securitylab.github.com/tools/codeql/license/).
 
 ## Requirements
+
 - OS: Windows 10, Linux (not tested)
 - CPU architecture: 64-bit
 - Docker ([Docker Desktop](https://www.docker.com/products/docker-desktop))
@@ -13,15 +15,18 @@ The created databases can then for example be loaded and analyzed using the [Vis
 See also [OpenJDK Build Hardware Requirements](https://github.com/openjdk/jdk/blob/master/doc/building.md#build-hardware-requirements).
 
 ## Usage
+
 This project provides convenience scripts for creating a CodeQL database for the Java code of the OpenJDK:
+
 - Windows: [`build_database.cmd`](./build_database.cmd)
 - Linux: [`build_database.sh`](./build_database.sh)
 
-At the moment they use CodeQL CLI 2.10.5 and build a Java database for the latest https://github.com/openjdk/jdk19u commit.
+At the moment they use CodeQL CLI 2.12.6 and build a Java database for the latest <https://github.com/openjdk/jdk20u> commit.
 
 The scripts only build the Linux variant of the JDK, building the Windows variant is currently not supported.
 
 These scripts can be executed as is (assuming that Docker has already been started). They perform the following tasks:
+
 1. Build the Docker image (named `codeql-jdk`)
 2. Clone the JDK source code
 3. Build the CodeQL database and copy it to the `databases` folder of the current directory
@@ -33,11 +38,14 @@ Note: Building the Docker image, the JDK and the CodeQL database are all resourc
 :information_source: 3 to 4GB of memory might suffice for the Docker container, however a memory limit should be specified for the JDK build using `--memory-limit` (see ["Build configuration" section](#build-configuration)), otherwise the build can get stuck and fail.
 
 ### Docker image configuration
+
 The Dockerfile uses [build-time variables](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg) for configuration.
+
 - `BOOT_JDK_URL`: URL of the JDK to be used as [boot JDK](https://github.com/openjdk/jdk/blob/master/doc/building.md#boot-jdk-requirements). The URL should be a download link for a `.tar.gz` file containing all JDK files nested in an extra directory. For example the [Eclipse Adoptium](https://adoptium.net) download URLs of the GitHub releases can be used.
 - `CODEQL_CLI_VERSION`: Version of [CodeQL CLI](https://github.com/github/codeql-cli-binaries/releases) to use for building the database, e.g. `2.5.7`
 
 ### Build configuration
+
 The Docker image has a build script as entry point which allows customizing how the JDK and the CodeQL database is built.
 The arguments are passed as additional arguments to [`docker container run`](https://docs.docker.com/engine/reference/commandline/container_run/).
 Additionally the arguments can be used with the convenience scripts mentioned in the ["Usage" section](#usage).

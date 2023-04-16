@@ -20,7 +20,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y instal
     libfontconfig1-dev
 
 # Install boot JDK
-ARG BOOT_JDK_URL="https://github.com/adoptium/temurin18-binaries/releases/download/jdk-18.0.2.1+1/OpenJDK18U-jdk_x64_linux_hotspot_18.0.2.1_1.tar.gz"
+ARG BOOT_JDK_URL="https://github.com/adoptium/temurin19-binaries/releases/download/jdk-19.0.2+7/OpenJDK19U-jdk_x64_linux_hotspot_19.0.2_7.tar.gz"
 RUN apt-get -y install ca-certificates \
     && wget --no-verbose "${BOOT_JDK_URL}" --output-document=boot-jdk.tar.gz \
     && mkdir boot-jdk \
@@ -29,7 +29,7 @@ RUN apt-get -y install ca-certificates \
     && rm boot-jdk.tar.gz
 
 # Set up CodeQL CLI
-ARG CODEQL_CLI_VERSION=2.10.5
+ARG CODEQL_CLI_VERSION=2.12.6
 RUN apt-get -y install ca-certificates \
     && wget --no-verbose "https://github.com/github/codeql-cli-binaries/releases/download/v${CODEQL_CLI_VERSION}/codeql-linux64.zip" --output-document=codeql-linux64.zip \
     && unzip -q -d codeql-cli codeql-linux64.zip \
@@ -40,4 +40,4 @@ RUN apt-get -y install ca-certificates \
 COPY ./docker_scripts/* ./docker_scripts/
 
 ENTRYPOINT ["./docker_scripts/create_database.sh"]
-CMD ["--jdk-git-repo", "https://github.com/openjdk/jdk19u"]
+CMD ["--jdk-git-repo", "https://github.com/openjdk/jdk20u"]
